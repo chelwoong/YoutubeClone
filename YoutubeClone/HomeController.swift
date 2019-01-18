@@ -64,12 +64,11 @@ class VideoCell: UICollectionViewCell {
         addSubview(thumbnailImageView)
         addSubview(seperateView)
         
-        // Horigental
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]-16-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": thumbnailImageView]))
-        // Vertical
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]-16-[v1(1)]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": thumbnailImageView, "v1": seperateView]))
+        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": seperateView]))
+        addConstraintsWithFormat(format: "V:|-16-[v0]-16-[v1(1)]|", views: thumbnailImageView, seperateView)
+        
+        addConstraintsWithFormat(format: "H:|[v0]|", views: seperateView)
     }
     
     required init?(coder aDecoder: NSCoder) {
