@@ -32,7 +32,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: view.frame.width, height: 200)
+        // 16:9 ratio
+        let height = (view.frame.width - 16 - 16) * 9 / 16
+        // userprofileImage까지 다 포함시킨 16:9 비율을 유지하기 위해서
+        // 탑 마진 16 + 바텀 마진(8), userprofileImage(44), 그밑에 바텀마진(16) 다 포함
+        return CGSize.init(width: view.frame.width, height: height + 16 + 68)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -48,34 +52,39 @@ class VideoCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.blue
-        imageView.image = UIImage.init(named: "bg2")
+        imageView.image = UIImage.init(named: "bg1")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
     let userProfileImageView: UIImageView = {
        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.green
+        imageView.image = UIImage.init(named: "bg3")
+        imageView.layer.cornerRadius = 22
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.purple
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Woongs Swift - Youtube Cloning!"
         return label
     }()
     
     let subtitleTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = UIColor.red
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = "WoongsSwiftCLONING!VEVO - 1,600,123,532 views - 2 years"
+        textView.textContainerInset = UIEdgeInsets.init(top: 0, left: -4, bottom: 0, right: 0)
+        textView.textColor = UIColor.lightGray
         return textView
     }()
     
     let seperateView: UIView = {
        let view = UIView()
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         return view
     }()
     
@@ -106,13 +115,13 @@ class VideoCell: UICollectionViewCell {
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
         
         // top Constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 8))
+        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
         // left Constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1, constant: 8))
         // right Constarint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         // height Constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
+        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))
         
     }
     
