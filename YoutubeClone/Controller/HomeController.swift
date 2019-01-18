@@ -30,6 +30,23 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView.backgroundColor = UIColor.white
         
         collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
+        
+        collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 0, right: 0)
+        // scroll도 메뉴바 밑으로 내려줘야 함
+        collectionView.scrollIndicatorInsets = UIEdgeInsets.init(top: 50, left: 0, bottom: 0, right: 0)
+        
+        setupMenuBar()
+    }
+    
+    let menuBar: MenuBar = {
+        let mb = MenuBar()
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:|[v0(50)]", views: menuBar)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
