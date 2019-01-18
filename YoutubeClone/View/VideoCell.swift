@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  VideoCell.swift
 //  YoutubeClone
 //
 //  Created by woong on 18/01/2019.
@@ -7,42 +7,6 @@
 //
 
 import UIKit
-
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        navigationItem.title = "Home"
-        
-        collectionView.backgroundColor = UIColor.white
-        
-        collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 16:9 ratio
-        let height = (view.frame.width - 16 - 16) * 9 / 16
-        // userprofileImage까지 다 포함시킨 16:9 비율을 유지하기 위해서
-        // 탑 마진 16 + 바텀 마진(8), userprofileImage(44), 그밑에 바텀마진(16) 다 포함
-        return CGSize.init(width: view.frame.width, height: height + 16 + 68)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-}
 
 class VideoCell: UICollectionViewCell {
     override init(frame: CGRect) {
@@ -59,7 +23,7 @@ class VideoCell: UICollectionViewCell {
     }()
     
     let userProfileImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.image = UIImage.init(named: "bg3")
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
@@ -83,7 +47,7 @@ class VideoCell: UICollectionViewCell {
     }()
     
     let seperateView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         return view
     }()
@@ -130,17 +94,5 @@ class VideoCell: UICollectionViewCell {
     }
 }
 
-extension UIView {
-    func addConstraintsWithFormat(format: String, views: UIView...) {
-        
-        // [v[index]: UIView]
-        var viewsDictionary = [String: UIView]()
-        for (index, view) in views.enumerated() {
-            let key = "v\(index)"
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewsDictionary[key] = view
-        }
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
-    }
-}
+
+
