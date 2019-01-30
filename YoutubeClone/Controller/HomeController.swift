@@ -93,35 +93,67 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
-    let blackView = UIView()
+    let settinglauncher = SettingLauncher()
     
     @objc func handleMore() {
         // show menu
-        
-        if let window = UIApplication.shared.keyWindow {
-            
-            blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-            
-            window.addSubview(blackView)
-            blackView.frame = window.frame
-            
-            // add animation
-            blackView.alpha = 0
-            
-            UIView.animate(withDuration: 0.5) {
-                self.blackView.alpha = 1
-            }
-        }
+        settinglauncher.showSettings()
     }
-    
-    @objc func handleDismiss() {
-        UIView.animate(withDuration: 0.5) {
-            self.blackView.alpha = 0
-        }
-    }
-    
+
+//    @objc func handleMore() {
+//        let alertController: UIAlertController = UIAlertController(title: "", message: "", preferredStyle: UIAlertController.Style.actionSheet)
+//
+//        let settingAction: UIAlertAction
+//        settingAction = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+//            self.viewDidAppear(true)
+//        })
+//        let settingImage = UIImage.fontAwesomeIcon(name: .cog, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//        settingAction.setValue(settingImage, forKey: "image")
+//
+//        let policyAction: UIAlertAction
+//        policyAction = UIAlertAction(title: "Terms & privacy policy", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+//            self.viewDidAppear(true)
+//        })
+//        let policyImage = UIImage.fontAwesomeIcon(name: .lock, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//        policyAction.setValue(policyImage, forKey: "image")
+//
+//        let feedbackAction: UIAlertAction
+//        feedbackAction = UIAlertAction(title: "Send Feedback", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+//            self.viewDidAppear(true)
+//        })
+//        let feedbackImage = UIImage.fontAwesomeIcon(name: .exclamationTriangle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//        feedbackAction.setValue(feedbackImage, forKey: "image")
+//
+//        let helpAction: UIAlertAction
+//        helpAction = UIAlertAction(title: "Help", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+//            self.viewDidAppear(true)
+//        })
+//        let helpImage = UIImage.fontAwesomeIcon(name: .questionCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//        helpAction.setValue(helpImage, forKey: "image")
+//
+//        let swtichAccountAction: UIAlertAction
+//        swtichAccountAction = UIAlertAction(title: "Switch Account", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+//            self.viewDidAppear(true)
+//        })
+//        let AccountImage = UIImage.fontAwesomeIcon(name: .userCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+//        swtichAccountAction.setValue(AccountImage, forKey: "image")
+//
+//        let cancelAction: UIAlertAction
+//        cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+//
+//        alertController.addAction(settingAction)
+//        alertController.addAction(policyAction)
+//        alertController.addAction(feedbackAction)
+//        alertController.addAction(helpAction)
+//        alertController.addAction(swtichAccountAction)
+//        alertController.addAction(cancelAction)
+//
+//        // 모달이 올라오는 애니메이션이 끝난 직후에 실행
+//        self.present(alertController, animated: true, completion: {
+//            print("Alert controller shown")
+//        })
+//    }
+//
     let menuBar: MenuBar = {
         let mb = MenuBar()
         return mb

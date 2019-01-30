@@ -16,6 +16,7 @@
 		4C2A4C0321F20B1D001CDC85 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A4C0221F20B1D001CDC85 /* VideoCell.swift */; };
 		4C2A4C0621F21F92001CDC85 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A4C0521F21F92001CDC85 /* MenuBar.swift */; };
 		4C2A4C0921F6C113001CDC85 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A4C0821F6C113001CDC85 /* Video.swift */; };
+		4CAF10662201948300209756 /* SettingLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAF10652201948300209756 /* SettingLauncher.swift */; };
 		8A96DBE503B0A9B45C7B64EF /* Pods_YoutubeClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320498A9060ACD870F12EB9E /* Pods_YoutubeClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		4C2A4C0221F20B1D001CDC85 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		4C2A4C0521F21F92001CDC85 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		4C2A4C0821F6C113001CDC85 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		4CAF10652201948300209756 /* SettingLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingLauncher.swift; sourceTree = "<group>"; };
 		95BA7DFD6ACEAF85E016F9A1 /* Pods-YoutubeClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeClone.debug.xcconfig"; path = "Target Support Files/Pods-YoutubeClone/Pods-YoutubeClone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				4C2A4BEE21F1AA8A001CDC85 /* HomeController.swift */,
+				4CAF10652201948300209756 /* SettingLauncher.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CAF10662201948300209756 /* SettingLauncher.swift in Sources */,
 				4C2A4BEF21F1AA8A001CDC85 /* HomeController.swift in Sources */,
 				4C2A4C0921F6C113001CDC85 /* Video.swift in Sources */,
 				4C2A4C0321F20B1D001CDC85 /* VideoCell.swift in Sources */,
