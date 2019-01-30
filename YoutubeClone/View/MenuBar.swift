@@ -22,21 +22,18 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     var cellId = "cellId"
     
-    let imageNames = ["home", "hotjar","youtube", "user"]
+//    let imageNames = [FontAwesome.home,FontAwesome.hotjar, FontAwesome.youtube, FontAwesome.user]
+    let imageNames = [
+        ["name": FontAwesome.home, "style": 0],
+        ["name": FontAwesome.hotjar, "style": 1],
+        ["name": FontAwesome.youtube, "style": 1],
+        ["name": FontAwesome.user, "style": 0]
+    ]
+    let fontAwesomeStyles = [FontAwesomeStyle.solid, FontAwesomeStyle.brands, FontAwesomeStyle.regular]
     
-    func getFontAwesomeImage (name: String, color: UIColor) -> UIImage {
-        switch name {
-        case "home":
-            return UIImage.fontAwesomeIcon(name: .home, style: .solid, textColor: color, size: CGSize(width: 28, height: 28))
-        case "hotjar":
-            return UIImage.fontAwesomeIcon(name: .hotjar, style: .brands, textColor: color, size: CGSize(width: 28, height: 28))
-        case "youtube":
-            return UIImage.fontAwesomeIcon(name: .youtube, style: .brands, textColor: color, size: CGSize(width: 28, height: 28))
-        case "user":
-            return UIImage.fontAwesomeIcon(name: .user, style: .solid, textColor: color, size: CGSize(width: 28, height: 28))
-        default:
-            return UIImage.fontAwesomeIcon(name: .home, style: .solid, textColor: color, size: CGSize(width: 28, height: 28))
-        }
+    
+    func getFontAwesomeImage (name: FontAwesome, style: FontAwesomeStyle, color: UIColor, size: CGSize) -> UIImage {
+        return UIImage.fontAwesomeIcon(name: name, style: style, textColor: color, size: size)
     }
     
     override init(frame: CGRect) {
@@ -47,6 +44,9 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.init(rawValue: 0))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -56,8 +56,18 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MenuCell else { return UICollectionViewCell() }
         
-        cell.imageView.image = getFontAwesomeImage(name: imageNames[indexPath.item], color: UIColor.black)
-        cell.imageView.highlightedImage = getFontAwesomeImage(name: imageNames[indexPath.item], color: UIColor.white)
+        cell.imageView.image = getFontAwesomeImage(
+            name: imageNames[indexPath.item]["name"] as? FontAwesome ?? FontAwesome.home,
+            style: fontAwesomeStyles[imageNames[indexPath.item]["style"] as? Int ?? 0],
+            color: UIColor.black,
+            size: CGSize(width: 28, height: 28)
+        )
+        cell.imageView.highlightedImage = getFontAwesomeImage(
+            name: imageNames[indexPath.item]["name"] as? FontAwesome ?? FontAwesome.home,
+            style: fontAwesomeStyles[imageNames[indexPath.item]["style"] as? Int ?? 0],
+            color: UIColor.white,
+            size: CGSize(width: 28, height: 28)
+        )
         
         return cell
     }
