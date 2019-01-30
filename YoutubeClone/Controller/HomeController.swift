@@ -11,26 +11,8 @@ import FontAwesome_swift
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-//    var videos: [Video] = {
-//        var woongsChannel = Channel.init(
-//            name: "woongswoongswoongswoongsIsBestVideo!",
-//            profileImageName: "bg13"
-//        )
-//
-//        var blankVideo = Video.init(thumbnailImageName: "bg8", title: "Youtube cloning", numberOfViews: 123123123, uploadDate: nil, channel: woongsChannel, duration: 200)
-//
-//        var woongVideo = Video.init(thumbnailImageName: "woongtube Awesome!!", title: "bg10", numberOfViews: 998923899232, uploadDate: nil, channel: woongsChannel, duration: 200)
-//
-//        return [blankVideo, woongVideo]
-//    }()
-    
     var videos: [Video]?
     var channel: Channel?
-    
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return UIStatusBarStyle.lightContent // .default
-//    }
     
     func fetchVideos() {
         // set up URL request
@@ -38,7 +20,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             print("Error: cannot create URL")
             return
         }
-//        let urlRequest = URLRequest(url: url)
         
         // set up Session
         let config = URLSessionConfiguration.default
@@ -57,9 +38,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 
                 let decoder = JSONDecoder()
                 self.videos = try decoder.decode([Video].self, from: data)
-//                self.channel = try decoder.decode(Channel.self, from: data)
-//                print(videoResponse)
                 
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
                 
             } catch(let err) {
                 print(err.localizedDescription)
