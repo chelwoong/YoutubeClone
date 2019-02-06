@@ -38,13 +38,22 @@
 import UIKit
 
 class Setting: NSObject {
-    let name: String
+    let name: SettingName
     let image: UIImage
     
-    init(name: String, image: UIImage) {
+    init(name: SettingName, image: UIImage) {
         self.name = name
         self.image = image
     }
+}
+
+enum SettingName: String {
+    case Settings = "Settings"
+    case Policy = "Terms & privacy policy"
+    case Feedback = "Send Feedback"
+    case Help = "Help"
+    case SwitchAccount = "Switch Account"
+    case Cancel = "Cancel"
 }
 
 class SettingLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -68,12 +77,12 @@ class SettingLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDel
         let accountImage = UIImage.fontAwesomeIcon(name: .userCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         let cancelImage = UIImage.fontAwesomeIcon(name: .ban, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
 
-        return [Setting(name: "Setting", image: settingImage),
-                Setting(name: "Terms & privacy policy", image: policyImage),
-                Setting(name: "Send Feedback", image: feedbackImage),
-                Setting(name: "Help", image: helpImage),
-                Setting(name: "Switch Account", image: accountImage),
-                Setting(name: "Cancel", image: cancelImage),
+        return [Setting(name: .Settings, image: settingImage),
+                Setting(name: .Policy, image: policyImage),
+                Setting(name: .Feedback, image: feedbackImage),
+                Setting(name: .Help, image: helpImage),
+                Setting(name: .SwitchAccount, image: accountImage),
+                Setting(name: .Cancel, image: cancelImage),
         ]
     }()
     
@@ -123,7 +132,7 @@ class SettingLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDel
             if setting is Setting {
                 guard let setting = setting as? Setting else { return }
                 
-                if setting.name != "Cancel" {
+                if setting.name != SettingName.Cancel {
                     self.homeController?.showControllerForSettings(setting)
                 }
             }
