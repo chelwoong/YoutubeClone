@@ -65,13 +65,19 @@ class SettingLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDel
         let policyImage = UIImage.fontAwesomeIcon(name: .lock, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         let feedbackImage = UIImage.fontAwesomeIcon(name: .exclamationTriangle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         let helpImage = UIImage.fontAwesomeIcon(name: .questionCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        let accountImage = UIImage.fontAwesomeIcon(name: .userCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        let cancelImage = UIImage.fontAwesomeIcon(name: .ban, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
 
         return [Setting(name: "Setting", image: settingImage),
                 Setting(name: "Terms & privacy policy", image: policyImage),
                 Setting(name: "Send Feedback", image: feedbackImage),
-                Setting(name: "Switch Account", image: helpImage),
+                Setting(name: "Help", image: helpImage),
+                Setting(name: "Switch Account", image: accountImage),
+                Setting(name: "Cancel", image: cancelImage),
         ]
     }()
+    
+    var homeController: HomeController? = HomeController()
     
     
     @objc func showSettings() {
@@ -102,18 +108,25 @@ class SettingLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDel
                 
                 self.collectionView.frame = CGRect(x: 0, y: y, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             }, completion: nil)
-            
-//            UIView.animate(withDuration: 0.5) {
-//                self.blackView.alpha = 1
-//
-//                self.collectionView.frame = CGRect(x: 0, y: y, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
-//            }
         }
     }
     
-    @objc func handleDismiss() {
-        UIView.animate(withDuration: 0.5) {
+    @objc func handleDismiss(setting: NSObject) {
+        UIView.animate(withDuration: 0.5, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
             self.blackView.alpha = 0
+            
+            if let window = UIApplication.shared.keyWindow {
+                self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+            }
+        }) { (completed: Bool) in
+            if setting is Setting {
+                guard let setting = setting as? Setting else { return }
+                
+                if setting.name != "Cancel" {
+                    self.homeController?.showControllerForSettings(setting)
+                }
+            }
         }
     }
     
@@ -133,6 +146,11 @@ class SettingLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let setting = self.settings[indexPath.item]
+        handleDismiss(setting: setting)
     }
     
     override init() {
