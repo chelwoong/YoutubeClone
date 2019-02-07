@@ -22,6 +22,8 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     var cellId = "cellId"
     
+    var homeController: HomeController?
+    
 //    let imageNames = [FontAwesome.home,FontAwesome.hotjar, FontAwesome.youtube, FontAwesome.user]
     let imageNames = [
         ["name": FontAwesome.home, "style": 0],
@@ -74,18 +76,23 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = CGFloat(indexPath.item) * frame.width / 4
-        horizontalBarLeftAnchorConstraint?.constant = x
         
-        // sliding 에니메이션 구현
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
-        
-        // 차이를 잘 모르겠음...;
-//        UIView.animate(withDuration: 0.5) {
+        // -- 좌표를 가지고 수동으로 구현했던 코드
+        // menuBar에서 scrollViewDidScroll을 사용해서 구현했기 때문에 더 이상 필요가 없음
+//        let x = CGFloat(indexPath.item) * frame.width / 4
+//        horizontalBarLeftAnchorConstraint?.constant = x
+//
+//        // sliding 에니메이션 구현
+//        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
 //            self.layoutIfNeeded()
-//        }
+//        }, completion: nil)
+//
+//        // 차이를 잘 모르겠음...;
+////        UIView.animate(withDuration: 0.5) {
+////            self.layoutIfNeeded()
+////        }
+        
+        homeController?.scrollToMenuIndex(menuIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
