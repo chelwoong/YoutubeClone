@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C01E31A220BD19F00BD5064 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C01E319220BD19F00BD5064 /* ApiService.swift */; };
 		4C2A4BED21F1AA8A001CDC85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A4BEC21F1AA8A001CDC85 /* AppDelegate.swift */; };
 		4C2A4BEF21F1AA8A001CDC85 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A4BEE21F1AA8A001CDC85 /* HomeController.swift */; };
 		4C2A4BF221F1AA8A001CDC85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C2A4BF021F1AA8A001CDC85 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		2954392F357DF9C31BA4DB17 /* Pods-YoutubeClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeClone.release.xcconfig"; path = "Target Support Files/Pods-YoutubeClone/Pods-YoutubeClone.release.xcconfig"; sourceTree = "<group>"; };
 		320498A9060ACD870F12EB9E /* Pods_YoutubeClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoutubeClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C01E319220BD19F00BD5064 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4C2A4BE921F1AA8A001CDC85 /* YoutubeClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C2A4BEC21F1AA8A001CDC85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C2A4BEE21F1AA8A001CDC85 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C01E318220BD18500BD5064 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				4C01E319220BD19F00BD5064 /* ApiService.swift */,
+			);
+			path = ApiService;
+			sourceTree = "<group>";
+		};
 		4C2A4BE021F1AA8A001CDC85 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +83,7 @@
 		4C2A4BEB21F1AA8A001CDC85 /* YoutubeClone */ = {
 			isa = PBXGroup;
 			children = (
+				4C01E318220BD18500BD5064 /* ApiService */,
 				4C2A4C0721F6C106001CDC85 /* Model */,
 				4C2A4C0121F20B0E001CDC85 /* View */,
 				4C2A4C0421F20B59001CDC85 /* Controller */,
@@ -263,6 +274,7 @@
 				4CAF10682201EBF700209756 /* SettingCell.swift in Sources */,
 				4C2A4C0921F6C113001CDC85 /* Video.swift in Sources */,
 				4C2A4C0321F20B1D001CDC85 /* VideoCell.swift in Sources */,
+				4C01E31A220BD19F00BD5064 /* ApiService.swift in Sources */,
 				4C2A4BED21F1AA8A001CDC85 /* AppDelegate.swift in Sources */,
 				4C2A4C0021F20AC7001CDC85 /* extensions.swift in Sources */,
 				4C2A4C0621F21F92001CDC85 /* MenuBar.swift in Sources */,

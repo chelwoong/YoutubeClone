@@ -15,41 +15,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     var channel: Channel?
     
     func fetchVideos() {
-        // set up URL request
-        guard let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json") else {
-            print("Error: cannot create URL")
-            return
-        }
-        
-        // set up Session
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        let dataTask: URLSessionDataTask = session.dataTask(with: url) { (data, response, error) in
-            
-            if let error = error {
-                print("dataTask Error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            do {
-                
-                let decoder = JSONDecoder()
-                self.videos = try decoder.decode([Video].self, from: data)
-                
-//                DispatchQueue.main.async {
-//                    self.collectionView.reloadData()
-//                }
-                
-            } catch(let err) {
-                print(err.localizedDescription)
-            }
+        ApiService.sharedInstance.fetchVideos { (videos:[Video]) in
+
+            self.videos = videos
+            self.collectionView.reloadData()
             
         }
-        dataTask.resume()
-        
     }
 
     override func viewDidLoad() {
@@ -77,6 +48,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         setupMenuBar()
         setupNavBarButtons()
+        
     }
     
     func setupNavBarButtons() {
@@ -86,7 +58,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let moreImage = UIImage.fontAwesomeIcon(name: .ellipsisV, style: .solid, textColor: .white, size: CGSize(width: 25, height: 25)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         let moreButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(handleMore))
         
-        navigationItem.rightBarButtonItems = [moreButton,  searchBarButtonItem]
+        navigationItem.rightBarButtonItems = [moreButton, searchBarButtonItem]
     }
     
     @objc func handleSearch() {
@@ -115,60 +87,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
 
-//    @objc func handleMore() {
-//        let alertController: UIAlertController = UIAlertController(title: "", message: "", preferredStyle: UIAlertController.Style.actionSheet)
-//
-//        let settingAction: UIAlertAction
-//        settingAction = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
-//            self.viewDidAppear(true)
-//        })
-//        let settingImage = UIImage.fontAwesomeIcon(name: .cog, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-//        settingAction.setValue(settingImage, forKey: "image")
-//
-//        let policyAction: UIAlertAction
-//        policyAction = UIAlertAction(title: "Terms & privacy policy", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
-//            self.viewDidAppear(true)
-//        })
-//        let policyImage = UIImage.fontAwesomeIcon(name: .lock, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-//        policyAction.setValue(policyImage, forKey: "image")
-//
-//        let feedbackAction: UIAlertAction
-//        feedbackAction = UIAlertAction(title: "Send Feedback", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
-//            self.viewDidAppear(true)
-//        })
-//        let feedbackImage = UIImage.fontAwesomeIcon(name: .exclamationTriangle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-//        feedbackAction.setValue(feedbackImage, forKey: "image")
-//
-//        let helpAction: UIAlertAction
-//        helpAction = UIAlertAction(title: "Help", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
-//            self.viewDidAppear(true)
-//        })
-//        let helpImage = UIImage.fontAwesomeIcon(name: .questionCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-//        helpAction.setValue(helpImage, forKey: "image")
-//
-//        let swtichAccountAction: UIAlertAction
-//        swtichAccountAction = UIAlertAction(title: "Switch Account", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
-//            self.viewDidAppear(true)
-//        })
-//        let AccountImage = UIImage.fontAwesomeIcon(name: .userCircle, style: .solid, textColor: .black, size: CGSize(width: 30, height: 30)).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-//        swtichAccountAction.setValue(AccountImage, forKey: "image")
-//
-//        let cancelAction: UIAlertAction
-//        cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-//
-//        alertController.addAction(settingAction)
-//        alertController.addAction(policyAction)
-//        alertController.addAction(feedbackAction)
-//        alertController.addAction(helpAction)
-//        alertController.addAction(swtichAccountAction)
-//        alertController.addAction(cancelAction)
-//
-//        // 모달이 올라오는 애니메이션이 끝난 직후에 실행
-//        self.present(alertController, animated: true, completion: {
-//            print("Alert controller shown")
-//        })
-//    }
-//
     let menuBar: MenuBar = {
         let mb = MenuBar()
         return mb

@@ -41,12 +41,15 @@ class CustomImageView: UIImageView {
         
         guard let url = URL(string: urlString) else { return }
         
-        image = nil
-        
-        if let imageFromCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
-            self.image = imageFromCache
-            return
+        DispatchQueue.main.async {
+            self.image = nil
+            
+            if let imageFromCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
+                self.image = imageFromCache
+                return
+            }
         }
+        
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             

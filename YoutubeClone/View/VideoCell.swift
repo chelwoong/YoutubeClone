@@ -28,26 +28,27 @@ class VideoCell: BaseCell {
     
     var video: Video? {
         didSet {
+            
             titleLabel.text = video?.title
             
             setupThumbnaiImage()
             
             setupProfileImage()
             
-            if let profileImageName = video?.channel.profileImageName {
-                userProfileImageView.image = UIImage(named: profileImageName)
+            if let profileImageName = self.video?.channel.profileImageName {
+                self.userProfileImageView.image = UIImage(named: profileImageName)
                 
-                subtitleTextView.text = video?.channel.name
+                self.subtitleTextView.text = self.video?.channel.name
             }
             
-            if let channelName = video?.channel.name , let numberOfViews = video?.numberOfViews {
+            if let channelName = self.video?.channel.name , let numberOfViews = self.video?.numberOfViews {
                 
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
                 
-                let subtitleText = "\(channelName) - \(String(describing: numberFormatter.string(from: NSNumber(value: numberOfViews)) ?? nil)) - 2 years ago"
+                let subtitleText = "\(channelName) - \(String(describing: numberFormatter.string(from: NSNumber(value: numberOfViews)) ?? "")) - 2 years ago"
                 
-                subtitleTextView.text = subtitleText
+                self.subtitleTextView.text = subtitleText
             }
             
             //measure title text

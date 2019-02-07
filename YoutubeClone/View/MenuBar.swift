@@ -78,7 +78,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         horizontalBarLeftAnchorConstraint?.constant = x
         
         // sliding 에니메이션 구현
-        UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.layoutIfNeeded()
         }, completion: nil)
         
