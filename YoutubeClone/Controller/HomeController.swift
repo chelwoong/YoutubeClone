@@ -11,24 +11,12 @@ import FontAwesome_swift
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var videos: [Video]?
     var channel: Channel?
     var cellId = "cellId"
-    
-    func fetchVideos() {
-        ApiService.sharedInstance.fetchVideos { (videos:[Video]) in
-
-            self.videos = videos
-            self.collectionView.reloadData()
-            
-        }
-    }
+    let titles = ["Home", "Trending", "Subscriptions", "Account"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        fetchVideos()
         
         navigationItem.title = "Home"
         navigationController?.navigationBar.isTranslucent = false
@@ -54,8 +42,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView.backgroundColor = UIColor.white
         
 //        collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        
+//        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.contentInset = UIEdgeInsets.init(top: 50, left: 0, bottom: 0, right: 0)
         // scroll도 메뉴바 밑으로 내려줘야 함
         collectionView.scrollIndicatorInsets = UIEdgeInsets.init(top: 50, left: 0, bottom: 0, right: 0)
@@ -80,6 +68,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func scrollToMenuIndex(menuIndex: Int) {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
+        
+        setTitleForIndex(index: menuIndex)
+    }
+    
+    private func setTitleForIndex(index: Int) {
+        if let titleLabel = navigationItem.titleView as? UILabel {
+            titleLabel.text = "  \(titles[index])"
+        }
     }
     
     lazy var settingLauncher: SettingLauncher = {
@@ -135,6 +131,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let index = targetContentOffset.pointee.x / view.frame.width
         let indexPath = IndexPath(item: Int(index), section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+        
+        setTitleForIndex(index: Int(index))
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -144,36 +142,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         
-        let colors: [UIColor] = [.blue, .purple, .yellow, .gray]
-        cell.backgroundColor = colors[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height)
+        return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height - menuBar.frame.height - 10)
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return videos?.count ?? 0
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? VideoCell else { return VideoCell() }
-//
-//        cell.video = videos?[indexPath.item]
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        // 16:9 ratio
-//        let height = (view.frame.width - 16 - 16) * 9 / 16
-//        // userprofileImage까지 다 포함시킨 16:9 비율을 유지하기 위해서
-//        // 탑 마진 16 + 바텀 마진(8), userprofileImage(44), 그밑에 바텀마진(16) 다 포함
-//        return CGSize.init(width: view.frame.width, height: height + 16 + 80)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
 }
 
