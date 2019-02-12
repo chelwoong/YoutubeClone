@@ -43,26 +43,19 @@ class ApiService: NSObject {
                 print("dataTask Error: \(error.localizedDescription)")
                 return
             }
-            
+    
             guard let data = data else { return }
-            
             do {
-                
                 let decoder = JSONDecoder()
                 let videos = try decoder.decode([Video].self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(videos)
                 }
-                
-                
-                
             } catch(let err) {
                 print(err.localizedDescription)
             }
-            
         }
         dataTask.resume()
-        
     }
 }
